@@ -1,0 +1,21 @@
+# Visual Studio 本地缓存
+.vs/
+
+# 编译输出目录
+Debug/
+Release/
+x64/
+x86/
+
+# 编译生成文件
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.idb
+*.ipch
+*.pch
+
+# Visual Studio 用户个人配置
+*.user
+*.suo
