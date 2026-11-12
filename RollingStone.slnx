@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="RollingStone/RollingStone.vcxproj" Id="7d95b2c7-aa1c-40d7-8cc0-471d4130a26f" />
+</Solution>
