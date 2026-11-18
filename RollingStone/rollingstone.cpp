@@ -1158,6 +1158,8 @@ static void panel(int x, int y, int w, int h, COLORREF fill, double alpha) {
 static bool hitBox(int x, int y, int l, int t, int w, int h) {
     return x >= l && x < l + w && y >= t && y < t + h;
 }
+static void restart();
+
 static void choiceInput() {
     // Drain EasyX mouse events every frame, preserving the existing polling controls.
     ExMessage event;
@@ -1171,8 +1173,9 @@ static void choiceInput() {
     bool down = (GetAsyncKeyState(VK_LBUTTON) & 0x8000) != 0;
     if (down && !wasDown) {
         POINT p; GetCursorPos(&p); ScreenToClient(GetHWnd(), &p);
-        if (hitBox(p.x, p.y, WIN_W - 290, 380, 128, 34))g_world.paused = false;
-        if (hitBox(p.x, p.y, WIN_W - 154, 380, 128, 34))g_world.paused = true;
+        if (hitBox(p.x, p.y, WIN_W - 290, 380, 80, 34))g_world.paused = false;
+        if (hitBox(p.x, p.y, WIN_W - 202, 380, 80, 34))g_world.paused = true;
+        if (hitBox(p.x, p.y, WIN_W - 114, 380, 80, 34)) restart();
         for (int i = 0;i < SH_COUNT;i++) {
             int x = WIN_W - 290 + (i % 2) * 136, y = 76 + (i / 2) * 35;
             if (hitBox(p.x, p.y, x, y, 128, 29)) {
@@ -1245,10 +1248,12 @@ static void drawChoices() {
         txt(x + 7, y + 5, text, on ? RGB(80, 255, 225) : RGB(160, 175, 195), 13);
     }
     txt(WIN_W - 290, 300, _T("天气 / 可叠加 · 暂停时动画冻结"), RGB(80, 230, 220), 14);
-    panel(WIN_W - 290, 380, 128, 34, RGB(12, 90, 80), 1);
-    txt(WIN_W - 253, 388, _T("开始"), RGB(100, 255, 225), 15, true);
-    panel(WIN_W - 154, 380, 128, 34, RGB(70, 44, 30), 1);
-    txt(WIN_W - 117, 388, _T("暂停"), RGB(255, 200, 125), 15, true);
+    panel(WIN_W - 290, 380, 80, 34, RGB(12, 90, 80), 1);
+    txt(WIN_W - 265, 388, _T("开始"), RGB(100, 255, 225), 15, true);
+    panel(WIN_W - 202, 380, 80, 34, RGB(70, 44, 30), 1);
+    txt(WIN_W - 177, 388, _T("暂停"), RGB(255, 200, 125), 15, true);
+    panel(WIN_W - 114, 380, 80, 34, RGB(38, 55, 84), 1);
+    txt(WIN_W - 89, 388, _T("重置"), RGB(205, 224, 255), 15, true);
     const TCHAR* names[3] = { _T("雨滴"),_T("飘雪"),_T("大风") };
     bool states[3] = { g_rain,g_snow,g_wind };
     for (int i = 0;i < 3;i++) {
